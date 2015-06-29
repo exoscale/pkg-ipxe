@@ -1,0 +1,2 @@
+debian/tree/ipxe/* .
+src/bin-x86_64-efi/ipxe.efi src/bin/ipxe.lkrn /boot

@@ -1,0 +1,7 @@
+rom-change-banner-timeout.diff
+enable-https.patch
+remove-libiberty.diff
+bootorder/01-enable-infrastructure-to-specify-an-autoboot
+bootorder/02-allow-prefix-to-specify-a-pci-autoboot
+bootorder/03-store-boot-bus-dev-fn-address-as-autoboot-device-location
+bootorder/04-ignore-pci-autoboot-device-location-if-set-to-00
