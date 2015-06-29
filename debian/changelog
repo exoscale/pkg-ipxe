@@ -1,3 +1,9 @@
+ipxe (1.0.0+git-20131111.c3d1e78-2ubuntu1.1~precise0+exo1) precise; urgency=medium
+
+  * Backport for Precise.
+
+ -- Vincent Bernat <bernat@debian.org>  Mon, 29 Jun 2015 11:10:32 +0200
+
 ipxe (1.0.0+git-20131111.c3d1e78-2ubuntu1.1) trusty-proposed; urgency=medium
 
   * Cherrypick 4 patches from upstream to fix specifying boot order.
