@@ -1,9 +1,187 @@
-ipxe (1.0.0+git-20131111.c3d1e78-2ubuntu1.1) trusty-proposed; urgency=medium
+ipxe (1.0.0+git-20180124.fbe8c52d-0ubuntu2) bionic; urgency=medium
 
-  * Cherrypick 4 patches from upstream to fix specifying boot order.
-    (LP: #1409057)
+  * debian/copyright: update copyright information to satisfy lintian
+    dep5 checks (LP: #1747071)
+  * d/p/enable-https.patch: adding proper dep3 header
 
- -- Serge Hallyn <serge.hallyn@ubuntu.com>  Wed, 14 Jan 2015 10:22:29 -0600
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Mon, 05 Feb 2018 15:09:28 +0100
+
+ipxe (1.0.0+git-20180124.fbe8c52d-0ubuntu1) bionic; urgency=medium
+
+  * Merge new upstream release 20180124.fbe8c52d with last "new"
+    Ubuntu packaging 1.0.0+git-20161027.b991c67-1ubuntu1 and the
+    fixes since 1.0.0+git-20161027.b991c67+really20150424.a25a16d-1ubuntu1
+    Remaining Changes:
+    - d/p/enable-https.patch: Enable HTTPS support.
+    - Split grub integration from ipxe->grub-ipxe.
+      - d/control: add package and adapt dependencies
+      - d/[grub-]ipxe.install: move some files to grub-ipxe
+      - rename d/ipxe.post* to d/grub-ipxe-post*
+    - Install ne.rom as pxe-ne2k_isa.rom
+      - d/ipxe-qemu.install: Install ne.rom as pxe-ne2k_isa.rom.
+      - d/ipxe-qemu.links: compat link for ne.rom
+    - d/ipxe-qemu.links: Add compat links from /usr/share/qemu
+      to /usr/lib/ipxe/qemu.
+    - d/util/check-rom-sizes, d/rules: check sizes of generated roms to avoid
+      accidentially breaking KVM live migration on updates/fixes.
+    - debian/patches/handle-dhcp-nack.patch: Handle DHCP NAK and send a
+      re-discover. (LP 1707999)
+  * Dropped changes (upstream):
+    - d/p/0004-fix_no-pie_option.patch: correct -no-pie option
+      to build without pie
+  * Added Changes:
+    - updated debian/patches/util-elf2efi-GNU_SOURCE.patch to match latest
+      upstream.
+    - add new rom for vmxnet3 (LP: #1737211)
+      - d/ipxe-qemu.install: install new rom
+      - d/util/check-rom-sizes: check new rom as well
+    - handling of efi rom size changes (LP: #1713490)
+      - d/util/check-rom-sizes: bump efi rom sizes
+      - d/control: break older qemu versions to ensure the new sized roms
+        are only associated with new qemu versions.
+    - d/util/check-rom-sizes: update description
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Wed, 24 Jan 2018 15:00:36 +0100
+
+ipxe (1.0.0+git-20161027.b991c67+really20150424.a25a16d-1ubuntu2) artful; urgency=medium
+
+  * debian/patches/handle-dhcp-nack.patch: Handle DHCP NAK and send a
+    re-discover. (LP: #1707999)
+
+ -- Andres Rodriguez <andreserl@ubuntu.com>  Thu, 12 Oct 2017 16:25:52 -0400
+
+ipxe (1.0.0+git-20161027.b991c67+really20150424.a25a16d-1ubuntu1) artful; urgency=medium
+
+  * Revert to the former git snapshot 20150424.a25a16d to fix changed
+    rom sizes that break cross release migrations (LP: #1713490).
+    This makes it effectively identical to 1.0.0+git-20150424.a25a16d-1ubuntu2
+    in regard to the upstream source, but keeps the changes to debian/*.
+    On next merge we need to either ensure that rom sizes don't change, or
+    that we can encapsulate that in qemu so that on forward migration it is
+    taken care off.
+    - This brings back debian/patches/0002-Don-t-use-libiberty.patch as needed
+      on the older source.
+    - Adapt d/p/0001-rom-change-banner-timeout.diff.patch to former state to
+      match old source.
+    - drop d/p/util-elf2efi-GNU_SOURCE.patch as it was not needed on old
+      source
+  * Fix FTBFS with newer perl versions (were dropped due to the revert above
+    but is needed to build in artful)
+    - d/p/0006-build-Fix-.ids.o-creation-for-drivers-not-in-the-all.patch
+    - d/p/0007-build-Remove-nested-my-declaration.patch
+  * d/util/check-rom-sizes, d/rules: check sizes of generated roms to avoid
+    accidentially breaking KVM live migration on updates/fixes.
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Tue, 29 Aug 2017 10:37:57 +0200
+
+ipxe (1.0.0+git-20161027.b991c67-1ubuntu1) artful; urgency=medium
+
+  * Merge from Debian stable. Remaining changes:
+    - d/p/enable-https.patch: Enable HTTPS support.
+    - Split grub integration from ipxe->grub-ipxe.
+      - d/control: add package and adapt dependencies
+      - d/[grub-]ipxe.install: move some files to grub-ipxe
+      - rename d/ipxe.post* to d/grub-ipxe-post*
+    - Install ne.rom as pxe-ne2k_isa.rom
+      - d/ipxe-qemu.install: Install ne.rom as pxe-ne2k_isa.rom.
+      - d/ipxe-qemu.links: compat link for ne.rom
+    - d/ipxe-qemu.links: Add compat links from /usr/share/qemu
+      to /usr/lib/ipxe/qemu.
+    - d/p/0004-fix_no-pie_option.patch: correct -no-pie option
+      to build without pie
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Thu, 17 Aug 2017 08:40:41 +0200
+
+ipxe (1.0.0+git-20161027.b991c67-1) unstable; urgency=medium
+
+  * New snapshot. (closes: #799216)
+  * Use debhelper 10.
+
+ -- Bastian Blank <waldi@debian.org>  Sun, 13 Nov 2016 13:35:11 +0100
+
+ipxe (1.0.0+git-20150424.a25a16d-1ubuntu2) yakkety; urgency=medium
+
+  * debian/patches/0004-fix_no-pie_option.patch: correct -no-pie
+    option to build without pie
+
+ -- Steve Beattie <sbeattie@ubuntu.com>  Thu, 28 Apr 2016 23:55:40 -0700
+
+ipxe (1.0.0+git-20150424.a25a16d-1ubuntu1) xenial; urgency=medium
+
+  * Merge from Debian unstable. Remaining changes:
+    - d/p/enable-https.patch: Enable HTTPS support.
+    - d/control,grub-ipxe*: Split grub integration from ipxe->grub-ipxe.
+    - d/ipxe-qemu.links: Add compat links from /usr/share/qemu to
+      /usr/lib/ipxe/qemu.
+    - d/ipxe-qemu.install: Install ne.rom as pxe-ne2k_isa.rom.
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Mon, 08 Feb 2016 20:35:02 -0800
+
+ipxe (1.0.0+git-20150424.a25a16d-1) unstable; urgency=medium
+
+  * New snapshot.
+  * Build-depend on liblzma-dev.
+  * Update Standards-Version, no changes.
+  * Redo ISO generation:
+    - Fix isolinux location and build-deps. (closes: #783051)
+    - Include EFI image, build-depend on dosfstools and mtools.
+    - Use xorriso instead of genisoimage.
+    - Use isohybrid.
+  * Enable support for IPv6 and NFS. (closes: #746500)
+
+ -- Bastian Blank <waldi@debian.org>  Wed, 29 Apr 2015 21:00:55 +0200
+
+ipxe (1.0.0+git-20141004.86285d1-1ubuntu3) vivid; urgency=medium
+
+  * ipxe.install: remove one more line which was supposed to be split out
+    into grub-ipxe.install.
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Mon, 09 Feb 2015 11:01:16 -0600
+
+ipxe (1.0.0+git-20141004.86285d1-1ubuntu2) vivid; urgency=medium
+
+  * ipxe.install: remove /boot/ipxe.efi and ipxe.lkrn which are split out
+    into grub-ipxe.install.  (LP: #1418751)
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Mon, 09 Feb 2015 10:51:22 -0600
+
+ipxe (1.0.0+git-20141004.86285d1-1ubuntu1) vivid; urgency=medium
+
+  * Merge from Debian unstable. (LP: #1409057)  Remaining changes:
+    - d/p/enable-https.patch: Enable HTTPS support.
+    - d/control,grub-ipxe*: Split grub integration from ipxe->grub-ipxe.
+    - d/ipxe-qemu.links: Add compat links from /usr/share/qemu to
+      /usr/lib/ipxe/qemu.
+    - d/ipxe-qemu.install: Install ne.rom as pxe-ne2k_isa.rom.
+  * Dropped changes, alternative fix in Debian:
+    - d/control: Add libiberty-dev to BD's to fix FTBFS.
+    - drop isolinux from build-deps and patch to augment ISOLINUX_BIN
+    - Drop transitional kvm-ipxe package since we are past 14.04
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Mon, 12 Jan 2015 10:32:26 -0600
+
+ipxe (1.0.0+git-20141004.86285d1-1) unstable; urgency=medium
+
+  * New snapshot.
+
+ -- Bastian Blank <waldi@debian.org>  Sun, 19 Oct 2014 16:02:53 +0200
+
+ipxe (1.0.0+git-20131111.c3d1e78-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Add missing export in d/rules.
+  * Change syslinux to syslinux-common in B-D. (Closes: #750349)
+
+ -- Juli?n Moreno Pati?o <julian@debian.org>  Wed, 10 Sep 2014 11:06:28 -0500
+
+ipxe (1.0.0+git-20131111.c3d1e78-2ubuntu2) utopic; urgency=medium
+
+  * Fix FTBFS in utopic due to movement of isolinux.bin:
+    - add isolinux to build-deps
+    - add /usr/lib/ISOLINUX/isolinux.bin to ISOLINUX_BIN in
+      src/arch/i386/Makefile
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Tue, 12 Aug 2014 12:56:06 -0500
 
 ipxe (1.0.0+git-20131111.c3d1e78-2ubuntu1) trusty; urgency=low
 

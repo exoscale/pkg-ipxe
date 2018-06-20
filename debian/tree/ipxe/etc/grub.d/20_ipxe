@@ -1,22 +1,7 @@
-#!/bin/sh
+#! /bin/sh
 set -e
 
-if [ -f /usr/lib/grub/grub-mkconfig_lib ]; then
-  . /usr/lib/grub/grub-mkconfig_lib
-  LX=linux16
-elif [ -f /usr/lib/grub/update-grub_lib ]; then
-  . /usr/lib/grub/update-grub_lib
-  LX=linux
-else
-  # no grub file, so we notify and exit gracefully
-  echo "Cannot find grub config file, exiting." >&2
-  exit 0
-fi
-
-# We can't cope with loop-mounted devices here.
-case ${GRUB_DEVICE_BOOT} in
-  /dev/loop/*|/dev/loop[0-9]) exit 0 ;;
-esac
+. /usr/lib/grub/grub-mkconfig_lib
 
 # iPXE is only supported on x86
 case $(dpkg --print-architecture) in
@@ -30,11 +15,11 @@ IPXE=/boot/ipxe.lkrn
 
 if test -e "$IPXE" ; then
   IPXEPATH=$( make_system_path_relative_to_its_root "$IPXE" )
-  echo "Found iPXE image: $IPXEPATH" >&2
+  echo "Found iPXE image: $IPXE" >&2
   cat << EOF
 menuentry "Network boot (iPXE)" --users "" --class network {
 ${prepare_boot_cache}
-    $LX $IPXEPATH
+	linux16 $IPXEPATH
 }
 EOF
 fi

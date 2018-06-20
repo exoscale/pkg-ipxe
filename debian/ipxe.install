@@ -1,3 +1,2 @@
-src/bin/ipxe.iso src/bin/ipxe.pxe usr/lib/ipxe
-src/bin/ipxe.dsk src/bin/ipxe.usb usr/lib/ipxe
+src/bin-efi/ipxe.iso src/bin/ipxe.pxe usr/lib/ipxe
 src/bin/undionly.kpxe src/bin/undionly.kkpxe usr/lib/ipxe

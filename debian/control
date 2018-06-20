@@ -4,10 +4,10 @@ Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Bastian Blank <waldi@debian.org>
 Build-Depends:
- debhelper (>> 9), dh-exec,
- genisoimage, syslinux,
- binutils-dev, zlib1g-dev
-Standards-Version: 3.9.1
+ debhelper (>> 10), dh-exec,
+ xorriso, isolinux, syslinux-common, syslinux-utils, dosfstools, mtools,
+ binutils-dev, liblzma-dev, zlib1g-dev,
+Standards-Version: 3.9.6
 Homepage: http://ipxe.org/
 #Vcs-Git: git://git.debian.org/collab-maint/ipxe.git
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/ipxe.git;a=summary
@@ -32,8 +32,7 @@ Package: ipxe-qemu
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
-Breaks: kvm-ipxe (<< 1.0.0+git-20130710.936134e-0ubuntu1)
-Replaces: kvm-ipxe (<< 1.0.0+git-20130710.936134e-0ubuntu1)
+Breaks: qemu-system-x86 (<< 1:2.11+dfsg-1ubuntu1~)
 Description: PXE boot firmware - ROM images for qemu
  iPXE is network boot firmware.  It supports a variety of network cards,
  including some wireless cards, and variety of network protocols (traditional
@@ -45,13 +44,6 @@ Description: PXE boot firmware - ROM images for qemu
  .
  This package provides boot code for the qemu emulated network cards in
  as boot ROMs.
-
-Package: kvm-ipxe
-Architecture: all
-Depends: ipxe-qemu, ${misc:Depends}
-Section: oldlibs
-Description: transitional dummy package
- This is a transitional dummy package. It can safely be removed.
 
 Package: grub-ipxe
 Architecture: all
