@@ -1,3 +1,10 @@
+ipxe (1.0.0+git-20180124.fbe8c52d-0ubuntu2~xenial0+exo1) xenial; urgency=medium
+
+  * Backport to Xenial.
+     - Build with debhelper 9.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 20 Jun 2018 09:31:00 +0200
+
 ipxe (1.0.0+git-20180124.fbe8c52d-0ubuntu2) bionic; urgency=medium
 
   * debian/copyright: update copyright information to satisfy lintian
