@@ -1,9 +1,3 @@
-Description: enable https
-Forwarded: no (downstream config option)
-Author: James Page <james.page@ubuntu.com>
-Bug-Ubuntu: https://bugs.launchpad.net/bugs/1025239
-Last-Update: 2012-11-14
-
 Index: ipxe-1.0.0+git-20150424.a25a16d/src/config/general.h
 ===================================================================
 --- ipxe-1.0.0+git-20150424.a25a16d.orig/src/config/general.h

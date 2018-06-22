@@ -1,4 +1,4 @@
 0001-rom-change-banner-timeout.diff.patch
-util-elf2efi-GNU_SOURCE.patch
+0002-Don-t-use-libiberty.patch
 enable-https.patch
 handle-dhcp-nack.patch

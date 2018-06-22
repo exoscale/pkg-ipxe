@@ -12,5 +12,3 @@ src/bin/rtl8139.rom => usr/lib/ipxe/qemu/pxe-rtl8139.rom
 src/bin-efi/virtio-net.efirom => usr/lib/ipxe/qemu/efi-virtio.rom
 src/bin/virtio-net.rom => usr/lib/ipxe/qemu/pxe-virtio.rom
 src/bin/ne.rom => usr/lib/ipxe/qemu/pxe-ne2k_isa.rom
-src/bin-efi/vmxnet3.efirom => usr/lib/ipxe/qemu/efi-vmxnet3.rom
-src/bin/vmxnet3.rom => usr/lib/ipxe/qemu/pxe-vmxnet3.rom

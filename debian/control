@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Bastian Blank <waldi@debian.org>
 Build-Depends:
- debhelper (>> 10), dh-exec,
+ debhelper (>> 9), dh-exec,
  xorriso, isolinux, syslinux-common, syslinux-utils, dosfstools, mtools,
  binutils-dev, liblzma-dev, zlib1g-dev,
 Standards-Version: 3.9.6
@@ -32,7 +32,6 @@ Package: ipxe-qemu
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
-Breaks: qemu-system-x86 (<< 1:2.11+dfsg-1ubuntu1~)
 Description: PXE boot firmware - ROM images for qemu
  iPXE is network boot firmware.  It supports a variety of network cards,
  including some wireless cards, and variety of network protocols (traditional
