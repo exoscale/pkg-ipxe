@@ -1,3 +1,9 @@
+ipxe (1.0.0+git-20180124.fbe8c52d-0ubuntu2+really-1.0.0+git-20150424.a25a16d-1ubuntu1.2~bionic0+exo1) bionic; urgency=medium
+
+  * Forward-port Xenial version for use with Bionic to ease migrations.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 22 Jun 2018 13:29:28 +0200
+
 ipxe (1.0.0+git-20150424.a25a16d-1ubuntu1.2) xenial-proposed; urgency=medium
 
   * debian/patches/handle-dhcp-nack.patch: Handle DHCP NAK and send a
