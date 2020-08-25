@@ -1,0 +1,61 @@
+From 951e0b7f3933056b5c2164d8adffe91e881c67d5 Mon Sep 17 00:00:00 2001
+From: Alessandro Ratti <alessandro@exoscale.com>
+Date: Tue, 25 Aug 2020 11:47:47 +0000
+Subject: [PATCH] Reconcile binutils
+
+---
+ src/util/elf2efi.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/util/elf2efi.c b/src/util/elf2efi.c
+index e68fa5d..aaf47ce 100644
+--- a/src/util/elf2efi.c
++++ b/src/util/elf2efi.c
+@@ -334,7 +334,7 @@ static struct pe_section * process_section ( bfd *bfd,
+ 	struct pe_section *new;
+ 	size_t section_memsz;
+ 	size_t section_filesz;
+-	unsigned long flags = bfd_get_section_flags ( bfd, section );
++	unsigned long flags = bfd_section_flags ( section );
+ 	unsigned long code_start;
+ 	unsigned long code_end;
+ 	unsigned long data_start;
+@@ -359,7 +359,7 @@ static struct pe_section * process_section ( bfd *bfd,
+ 		     pe_header->nt.OptionalHeader.SizeOfUninitializedData );
+ 
+ 	/* Allocate PE section */
+-	section_memsz = bfd_section_size ( bfd, section );
++	section_memsz = bfd_section_size ( section );
+ 	section_filesz = ( ( flags & SEC_LOAD ) ?
+ 			   efi_file_align ( section_memsz ) : 0 );
+ 	new = xmalloc ( sizeof ( *new ) + section_filesz );
+@@ -369,7 +369,7 @@ static struct pe_section * process_section ( bfd *bfd,
+ 	strncpy ( ( char * ) new->hdr.Name, section->name,
+ 		  sizeof ( new->hdr.Name ) );
+ 	new->hdr.Misc.VirtualSize = section_memsz;
+-	new->hdr.VirtualAddress = bfd_get_section_vma ( bfd, section );
++	new->hdr.VirtualAddress = bfd_section_vma ( section );
+ 	new->hdr.SizeOfRawData = section_filesz;
+ 
+ 	/* Fill in section characteristics and update RVA limits */
+@@ -471,7 +471,7 @@ static void process_reloc ( bfd *bfd __attribute__ (( unused )),
+ 			    struct pe_relocs **pe_reltab ) {
+ 	reloc_howto_type *howto = rel->howto;
+ 	asymbol *sym = *(rel->sym_ptr_ptr);
+-	unsigned long offset = ( bfd_get_section_vma ( bfd, section ) +
++	unsigned long offset = ( bfd_section_vma ( section ) +
+ 				 rel->address );
+ 
+ 	if ( bfd_is_abs_section ( sym->section ) ) {
+@@ -703,7 +703,7 @@ static void elf2pe ( const char *elf_name, const char *pe_name,
+ 	 */
+ 	for ( section = bfd->sections ; section ; section = section->next ) {
+ 		/* Discard non-allocatable sections */
+-		if ( ! ( bfd_get_section_flags ( bfd, section ) & SEC_ALLOC ) )
++		if ( ! ( bfd_section_flags ( section ) & SEC_ALLOC ) )
+ 			continue;
+ 		/* Create output section */
+ 		*(next_pe_section) = process_section ( bfd, &pe_header,
+-- 
+2.25.1
+
